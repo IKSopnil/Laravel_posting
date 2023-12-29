@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -13,5 +14,9 @@ class UserController extends Controller
         'email'=>['required','email'],
         'password'=>['required','min:8','max:200']
     ]);
-    return 'hello from controller';
+
+    $incoming_field['password']= bcrypt($incoming_field['password']);
+    $user=User::create($incoming_field);
+    auth()->login($user);
+    return redirect('/');
 }}
