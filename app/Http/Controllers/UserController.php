@@ -9,13 +9,17 @@ use Illuminate\Validation\Rule;
 class UserController extends Controller
 {
 
+    public function login(){
+
+    }
+
     public function logout(){
 
         auth()->logout();
         return redirect('/');
     }
     public function register(Request $request)
-{
+    {
     $incoming_field=$request->validate([
         'name'=>['required','min:3','max:20',Rule::unique('users','name')],
         'email'=>['required','email',Rule::unique('users','email')],
