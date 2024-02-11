@@ -116,6 +116,18 @@
     <div class="container">
         <div class="form-container">
             <div style="border: 3px solid black;">
+                <h2>Login</h2>
+                <form action="/login" method="POST">
+                    @csrf
+                    <input name="loginname" type="text" placeholder="Name">
+                    <input name="loginpassword" type="password" placeholder="Password">
+                    <button>Login</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <div style="border: 3px solid black;">
                 <h2>Register</h2>
                 <p>Don't have an account? Register now.</p>
                 <form action="/register" method="POST">
@@ -128,17 +140,7 @@
             </div>
         </div>
 
-        <div class="form-container">
-            <div style="border: 3px solid black;">
-                <h2>Login</h2>
-                <form action="/login" method="POST">
-                    @csrf
-                    <input name="loginname" type="text" placeholder="Name">
-                    <input name="loginpassword" type="password" placeholder="Password">
-                    <button>Login</button>
-                </form>
-            </div>
-        </div>
+       
     </div>
 
     @endauth
