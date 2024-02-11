@@ -35,4 +35,4 @@ Route::get('/edit-post/{post}',[PostController::class, 'showEditScreen']);
 
 Route::put('/edit-post/{post}',[PostController::class, 'UpdatedPost']);
 
-Route::delete('/delete-post/{post}',[PostController::class, 'deletePost']);
+Route::delete('/delete/{post}',[PostController::class, 'deletePost']);
