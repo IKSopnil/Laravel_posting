@@ -83,7 +83,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6 ">
                 <div class="card p-3 shadow-lg">
                     <h2>Register</h2>
                     <p>Don't have an account? Register now.</p>
