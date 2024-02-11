@@ -45,6 +45,7 @@
     @else
         <div style="border: 3px solid black;">
             <h2>Resgister</h2>
+            <p>Dont't have a account? Register now.</p>
             <form action="/register" method="POST">
                 @csrf
                 <input name="name" type="text" placeholder="Name">
