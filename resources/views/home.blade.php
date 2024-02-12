@@ -172,18 +172,22 @@
                         <h2>All posts</h2>
                         @foreach ($posts as $post)
                             <div class="border mb-3 p-3">
-                                <h3>{{ $post['title'] }} <span class="mini-text">by "{{ $post->user->name }}"</span></h3>
-
-                                {{ $post['body'] }}
-                                <p><a href="/edit-post/{{ $post->id }}" class="btn btn-warning">Edit</a></p>
-                                <form action="/delete/{{ $post->id }}" method="post">
-                                    @csrf
-                                    @method('Delete')
-                                    <button class="btn btn-danger">Delete</button>
-                                </form>
+                                <h3>{{ $post->title }} <span class="mini-text">by "{{ $post->user->name }}"</span></h3>
+                                {{ $post->body }}
+                                @if(auth()->check() && auth()->user()->id === $post->user_id)
+                                    <!-- Only display Edit and Delete buttons if the user is the owner of the post -->
+                                    <p><a href="/edit-post/{{ $post->id }}" class="btn btn-warning">Edit</a></p>
+                                    <form action="/delete/{{ $post->id }}" method="post">
+                                        @csrf
+                                        @method('Delete')
+                                        <button class="btn btn-danger">Delete</button>
+                                    </form>
+                                @endif
                             </div>
                         @endforeach
                     </div>
+                </div>
+                
                 </div>
             </div>
         </div>

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $posts = Post:: where('user_id', auth()->id())->get();
+    $posts = Post::all();
 
     return view('home', ['posts' => $posts]);
 });
