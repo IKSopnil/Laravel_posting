@@ -98,6 +98,12 @@
         input:checked+.slider:before {
             transform: translateX(20px);
         }
+        .mini-text {
+    font-size: 0.8em; /* Adjust the size as needed */
+    color: #888; /* Adjust the color as needed */
+    margin-left: 5px; /* Add margin for spacing */
+}
+
     </style>
 
 
@@ -166,7 +172,8 @@
                         <h2>All posts</h2>
                         @foreach ($posts as $post)
                             <div class="border mb-3 p-3">
-                                <h3>{{ $post['title'] }} by {{ $post->user->name }}</h3>
+                                <h3>{{ $post['title'] }} <span class="mini-text">by "{{ $post->user->name }}"</span></h3>
+
                                 {{ $post['body'] }}
                                 <p><a href="/edit-post/{{ $post->id }}" class="btn btn-warning">Edit</a></p>
                                 <form action="/delete/{{ $post->id }}" method="post">
