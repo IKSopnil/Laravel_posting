@@ -7,7 +7,9 @@
     <title>Opinion Vista</title>
 
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -100,12 +102,15 @@
         input:checked+.slider:before {
             transform: translateX(20px);
         }
-        .mini-text {
-    font-size: 0.8em; /* Adjust the size as needed */
-    color: #888; /* Adjust the color as needed */
-    margin-left: 5px; /* Add margin for spacing */
-}
 
+        .mini-text {
+            font-size: 0.8em;
+            /* Adjust the size as needed */
+            color: #888;
+            /* Adjust the color as needed */
+            margin-left: 5px;
+            /* Add margin for spacing */
+        }
     </style>
 
 
@@ -145,6 +150,68 @@
 
         <div class="container mt-4">
             <div class="row">
+                
+                <div class="col-md-6 mb-4">
+                    <div class="card p-3 shadow-lg">
+                        <h2>All posts</h2>
+                        @foreach ($posts as $post)
+                            <div class="border mb-3 p-3 position-relative">
+                                <h3>{{ $post->title }} <span class="mini-text">by "{{ $post->user->name }}"</span></h3>
+                                {{ $post->body }}
+
+                                <!-- Edit and Delete buttons in the top right corner -->
+                                <div class="position-absolute top-0 end-0 mt-2 mr-2">
+                                    @if (auth()->check() && auth()->user()->id === $post->user_id)
+                                        <a href="/edit-post/{{ $post->id }}" class="btn btn-warning">Edit</a>
+                                        <form action="/delete/{{ $post->id }}" method="post" class="d-inline">
+                                            @csrf
+                                            @method('Delete')
+                                            <button class="btn btn-danger">Delete</button>
+                                        </form>
+                                    @endif
+                                </div>
+
+                                <!-- Like and Dislike buttons with icons -->
+                                <div class="mt-3">
+                                    <button class="btn btn-success mr-2 like-btn" data-post-id="{{ $post->id }}"><i
+                                            class="fas fa-thumbs-up"></i></button>
+                                    <button class="btn btn-danger dislike-btn" data-post-id="{{ $post->id }}"><i
+                                            class="fas fa-thumbs-down"></i></button>
+                                </div>
+                            </div>
+                        @endforeach
+
+                        <script>
+                            // Assuming you have jQuery included for simplicity
+                            $('.like-btn').on('click', function() {
+                                var postId = $(this).data('post-id');
+                                toggleLike(postId, 'like');
+                            });
+
+                            $('.dislike-btn').on('click', function() {
+                                var postId = $(this).data('post-id');
+                                toggleLike(postId, 'dislike');
+                            });
+
+                            function toggleLike(postId, type) {
+                                $.ajax({
+                                    type: 'POST',
+                                    url: `/${type}/${postId}`,
+                                    data: {
+                                        _token: '{{ csrf_token() }}',
+                                    },
+                                    success: function(response) {
+                                        // Handle success, you may update UI accordingly
+                                        console.log(response);
+                                    },
+                                    error: function(error) {
+                                        console.error(error);
+                                    },
+                                });
+                            }
+                        </script>
+                    </div>
+                </div>
                 <div class="col-md-6 mb-4">
                     <div class="card p-3 shadow-lg">
                         <p class="mb-3">You are logged in</p>
@@ -169,68 +236,10 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 mb-4">
-                    <div class="card p-3 shadow-lg">
-                        <h2>All posts</h2>
-@foreach ($posts as $post)
-    <div class="border mb-3 p-3">
-        <h3>{{ $post->title }} <span class="mini-text">by "{{ $post->user->name }}"</span></h3>
-        {{ $post->body }}
-        
-        <!-- Like and Dislike buttons with icons -->
-        <div class="mt-3">
-            <button class="btn btn-success mr-2 like-btn" data-post-id="{{ $post->id }}"><i class="fas fa-thumbs-up"></i></button>
-            <button class="btn btn-danger dislike-btn" data-post-id="{{ $post->id }}"><i class="fas fa-thumbs-down"></i></button>
-        </div>
 
-        @if(auth()->check() && auth()->user()->id === $post->user_id)
-            <!-- Only display Edit and Delete buttons if the user is the owner of the post -->
-            <p><a href="/edit-post/{{ $post->id }}" class="btn btn-warning">Edit</a></p>
-            <form action="/delete/{{ $post->id }}" method="post">
-                @csrf
-                @method('Delete')
-                <button class="btn btn-danger">Delete</button>
-            </form>
-        @endif
-    </div>
-@endforeach
 
-<script>
-    // Assuming you have jQuery included for simplicity
-    $('.like-btn').on('click', function() {
-        var postId = $(this).data('post-id');
-        toggleLike(postId, 'like');
-    });
-
-    $('.dislike-btn').on('click', function() {
-        var postId = $(this).data('post-id');
-        toggleLike(postId, 'dislike');
-    });
-
-    function toggleLike(postId, type) {
-        $.ajax({
-            type: 'POST',
-            url: `/${type}/${postId}`,
-            data: {
-                _token: '{{ csrf_token() }}',
-            },
-            success: function(response) {
-                // Handle success, you may update UI accordingly
-                console.log(response);
-            },
-            error: function(error) {
-                console.error(error);
-            },
-        });
-    }
-</script>
-
-                    </div>
-                </div>
-                
-                
-                </div>
             </div>
+        </div>
         </div>
     @else
         <div class="container mt-4">
