@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $posts = Post::all();
+    $posts = Post::orderBy('created_at', 'desc')->get();
 
     return view('home', ['posts' => $posts]);
 });

@@ -150,13 +150,24 @@
 
         <div class="container mt-4">
             <div class="row">
-                
+
                 <div class="col-md-6 mb-4">
                     <div class="card p-3 shadow-lg">
                         <h2>All posts</h2>
                         @foreach ($posts as $post)
                             <div class="border mb-3 p-3 position-relative">
                                 <h3>{{ $post->title }} <span class="mini-text">by "{{ $post->user->name }}"</span></h3>
+
+                                <!-- Displaying posted time in relative format -->
+                                <p>
+                                    Posted
+                                    @if ($post->created_at->diffInDays(now()) <= 7)
+                                        {{ $post->created_at->diffForHumans() }}
+                                    @else
+                                        {{ $post->created_at->format('F j, Y \a\t h:i A') }}
+                                    @endif
+                                </p>
+
                                 {{ $post->body }}
 
                                 <!-- Edit and Delete buttons in the top right corner -->
@@ -180,7 +191,6 @@
                                 </div>
                             </div>
                         @endforeach
-
                         <script>
                             // Assuming you have jQuery included for simplicity
                             $('.like-btn').on('click', function() {
