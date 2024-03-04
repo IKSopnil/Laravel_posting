@@ -59,7 +59,7 @@
 
         .switch {
             position: fixed;
-            bottom: 20px;
+            bottom: 100px;
             right: 20px;
         }
 
@@ -292,7 +292,36 @@
             </div>
         </div>
 
+        
+
     @endauth
+    <style>
+        /* Your existing styles */
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--footer-bg-color);
+            color: var(--font-color);
+            padding: 10px;
+            text-align: center;
+            transition: background-color 0.4s, color 0.4s;
+        }
+
+        [data-theme="dark"] .footer {
+            --footer-bg-color: #121212;
+        }
+
+        [data-theme="light"] .footer {
+            --footer-bg-color: #f8f9fa;
+        }
+    </style>
+
+    <div class="footer">
+        <p>&copy; {{ date('Y') }} Opinion Vista. All rights reserved.</p>
+    </div>
 
     <!-- Bootstrap JS (optional, if needed) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
