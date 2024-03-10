@@ -270,7 +270,7 @@
         <div class="container mt-4">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="card p-3 shadow-lg">
+                    <div class="card p-3 shadow-lg text-center">
                         <h2>Login</h2>
                         <form action="/login" method="POST">
                             @csrf
@@ -280,13 +280,13 @@
                             <div class="mb-3">
                                 <input name="loginpassword" type="password" class="form-control" placeholder="Password">
                             </div>
-                            <button class="btn btn-primary">Login</button>
+                            <button class="btn  btn-neon">Login</button>
                         </form>
                     </div>
                 </div>
 
                 <div class="col-md-6">
-                    <div class="card p-3 shadow-lg">
+                    <div class="card p-3 shadow-lg text-center">
                         <h2>Register</h2>
                         <p>Don't have an account? <br>Register now.</p>
                         <form action="/register" method="POST">
@@ -300,13 +300,62 @@
                             <div class="mb-3">
                                 <input name="password" type="password" class="form-control" placeholder="Password">
                             </div>
-                            <button class="btn btn-success">Register</button>
+                            <button class="btn  btn-neon ">Register</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
+        <style>
+            /* Add these styles to give the buttons a neon effect */
+            .btn-neon {
+                --button-bg-dark: black;
+                --button-bg-light: white;
+                --neon-color: #82A972;
+        
+                position: relative;
+                background-color: var(--button-bg-dark);
+                color: var(--neon-color);
+                border: none;
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+                overflow: hidden;
+                transition: background-color 0.2s, color 0.2s;
+            }
+        
+            .btn-neon:before,
+            .btn-neon:after {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                background: var(--neon-color);
+                top: 0;
+                left: 0;
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform 0.2s ease-in-out;
+            }
+        
+            .btn-neon:after {
+                top: auto;
+                bottom: 0;
+                transform-origin: right;
+            }
+        
+            .btn-neon:hover:before,
+            .btn-neon:hover:after {
+                transform: scaleX(1);
+            }
+        
+            /* Adjust the styles for light theme */
+            .light-theme .btn-neon {
+                background-color: var(--button-bg-light);
+                color: var(--neon-color);
+            }
+        </style>
+        
 
         <section class="animation">
             <div class="slider-area text-center ">
@@ -348,7 +397,7 @@
             /* Slider CSS logic */
             .slider {
                 --slider-inner-width: 2000px;
-                --slider-speed: 10s;
+                --slider-speed: 6s;
                 /* Adjust the speed as needed for a smoother effect */
             }
 
