@@ -72,7 +72,7 @@
             display: none;
         }
 
-        .slider {
+        .theme_slider {
             width: 40px;
             height: 20px;
             background-color: #ccc;
@@ -83,7 +83,7 @@
             transition: background-color 0.4s;
         }
 
-        .slider:before {
+        .theme_slider:before {
             content: '';
             width: 20px;
             height: 20px;
@@ -95,11 +95,11 @@
             transition: transform 0.4s;
         }
 
-        input:checked+.slider {
+        input:checked+.theme_slider {
             background-color: #2b2b2b;
         }
 
-        input:checked+.slider:before {
+        input:checked+.theme_slider:before {
             transform: translateX(20px);
         }
 
@@ -118,6 +118,21 @@
 
 <body>
 
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+        header {
+            font-family: 'Pacifico', cursive;
+            background-color: #343a40;
+            /* Adjust the background color as needed */
+            color: #ffffff;
+            /* Adjust the text color as needed */
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
+
+
     <header class="bg-dark text-light text-center py-3">
         <h1>Opinion Vista</h1>
     </header>
@@ -126,7 +141,7 @@
     <div class="switch">
         <label class="theme-switch" for="checkbox">
             <input type="checkbox" id="checkbox" />
-            <div class="slider"></div>
+            <div class="theme_slider"></div>
         </label>
     </div>
 
@@ -292,7 +307,123 @@
             </div>
         </div>
 
-        
+
+        <section class="animation">
+            <div class="slider-area text-center ">
+                <h2 class="my-5 ">Sponsered By</h2>
+                <div class="wrapper slider-container">
+                    <ul class="slider">
+                        <li class="slider__slide">
+                            <div class="slide__content">
+                                <img alt="" src="img/meta.jpg">
+                            </div>
+                        </li>
+                        <li class="slider__slide">
+                            <div class="slide__content">
+                                <img alt="" src="img/f1.jpg">
+                            </div>
+                        </li>
+                        <li class="slider__slide">
+                            <div class="slide__content">
+                                <img alt="" src="img/netflix.jpg">
+                            </div>
+                        </li>
+                        <li class="slider__slide">
+                            <div class="slide__content">
+                                <img alt="" src="img/oracle.png">
+                            </div>
+                        </li>
+                        <li class="slider__slide">
+                            <div class="slide__content">
+                                <img alt="" src="img/Tesla.jpg">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+
+        <style>
+            /* Slider CSS logic */
+            .slider {
+                --slider-inner-width: 2000px;
+                --slider-speed: 10s;
+                /* Adjust the speed as needed for a smoother effect */
+            }
+
+            @keyframes scroll {
+                0% {
+                    transform: translateX(0);
+                }
+
+                100% {
+                    transform: translateX(calc(0% - var(--slider-inner-width)));
+                }
+            }
+
+            .slider {
+                -webkit-transform: translate3d(0, 0, 0);
+                animation: scroll linear infinite var(--slider-speed);
+                width: var(--slider-inner-width);
+                /* Adjusted width */
+                transition: animation-play-state ease 0.3s;
+
+                &:hover {
+                    animation-play-state: paused;
+                }
+            }
+
+            /* Main styles CSS */
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+            .flex-container {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 4rem 0;
+            }
+
+            .slider-container {
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+                height: 150px;
+                /* Increase the height as needed */
+                overflow: hidden;
+                position: relative;
+                width: 100%;
+
+                .slider {
+                    display: flex;
+                    align-items: center;
+                    list-style: none;
+                    margin: 0;
+                }
+
+                .slider__slide {
+                    height: 150px;
+                    /* Increase the height as needed */
+                    flex-grow: 1;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: black;
+                    border-right: solid #82a972 10px;
+                    background: rgba(0, 0, 0, 1);
+
+                    &:hover {
+                        background: rgba(0, 0, 0, 0.8);
+                        cursor: pointer;
+                    }
+
+                    .slide__content {
+                        color: white;
+                        font-size: 80px;
+                    }
+                }
+            }
+        </style>
 
     @endauth
     <style>
