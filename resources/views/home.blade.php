@@ -12,112 +12,106 @@
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-
-
-    <style>
-        /* Light mode styles */
-        body {
-
-            overflow-y: scroll;
-            background-color: var(--bg-color);
-            color: var(--font-color);
-        }
-
-        [data-theme="dark"] {
-            --font-color: #fefefe;
-            --bg-color: #121212;
-        }
-
-        .card {
-            background-color: var(--card-bg-color);
-            color: var(--card-font-color);
-            transition: background-color 0.4s, color 0.4s;
-            /* Add transition for smooth color change */
-        }
-
-        [data-theme="dark"] .card {
-            --card-font-color: #fefefe;
-            --card-bg-color: #212121;
-        }
-
-        /* Add these styles for light mode (optional) */
-        [data-theme="light"] .card {
-            --card-font-color: #0f0f0f;
-            --card-bg-color: #f8f9fa;
-        }
-
-
-        :root {
-            --font-color: #0f0f0f;
-            --bg-color: #fefefe;
-        }
-
-        [data-theme="dark"] {
-            --font-color: #fefefe;
-            --bg-color: #121212;
-        }
-
-        .switch {
-            position: fixed;
-            bottom: 100px;
-            right: 20px;
-        }
-
-        .theme-switch {
-            display: flex;
-            align-items: center;
-        }
-
-        .theme-switch input {
-            display: none;
-        }
-
-        .theme_slider {
-            width: 40px;
-            height: 20px;
-            background-color: #ccc;
-            border-radius: 10px;
-            margin-left: 10px;
-            position: relative;
-            cursor: pointer;
-            transition: background-color 0.4s;
-        }
-
-        .theme_slider:before {
-            content: '';
-            width: 20px;
-            height: 20px;
-            background-color: #fff;
-            border-radius: 50%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transition: transform 0.4s;
-        }
-
-        input:checked+.theme_slider {
-            background-color: #2b2b2b;
-        }
-
-        input:checked+.theme_slider:before {
-            transform: translateX(20px);
-        }
-
-        .mini-text {
-            font-size: 0.8em;
-            /* Adjust the size as needed */
-            color: #888;
-            /* Adjust the color as needed */
-            margin-left: 5px;
-            /* Add margin for spacing */
-        }
-    </style>
+    
 
 
 </head>
+
+<style>
+        /* Light mode styles */
+        body {
+    overflow-y: scroll;
+    background-color: var(--bg-color);
+    color: var(--font-color);
+}
+
+[data-theme="dark"] {
+    --font-color: #fefefe;
+    --bg-color: #121212;
+}
+
+.card {
+    background-color: var(--card-bg-color);
+    color: var(--card-font-color);
+    transition: background-color 0.4s, color 0.4s;
+}
+
+[data-theme="dark"] .card {
+    --card-font-color: #fefefe;
+    --card-bg-color: #212121;
+}
+
+[data-theme="light"] .card {
+    --card-font-color: #0f0f0f;
+    --card-bg-color: #f8f9fa;
+}
+
+:root {
+    --font-color: #0f0f0f;
+    --bg-color: #fefefe;
+}
+
+[data-theme="dark"] {
+    --font-color: #fefefe;
+    --bg-color: #121212;
+}
+
+.switch {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+}
+
+.theme-switch {
+    display: flex;
+    align-items: center;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.theme_slider {
+    width: 40px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 10px;
+    margin-left: 10px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.4s;
+}
+
+.theme_slider:before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.4s;
+}
+
+input:checked + .theme_slider {
+    background-color: #2b2b2b;
+}
+
+input:checked + .theme_slider:before {
+    transform: translateX(20px);
+}
+
+.mini-text {
+    font-size: 0.8em;
+    color: #888;
+    margin-left: 5px;
+}
+
+    </style>
 
 <body>
 
@@ -175,7 +169,7 @@
                         @foreach ($posts as $post)
                             <div class="border mb-3 p-3 position-relative">
                                 <h3>{{ $post->title }} <span class="mini-text">by "{{ $post->user->name }}"</span></h3>
-
+                
                                 <!-- Displaying posted time in relative format -->
                                 <p class="posted-text">
                                     Posted
@@ -185,27 +179,45 @@
                                         {{ $post->created_at->format('F j, Y \a\t h:i A') }}
                                     @endif
                                 </p>
-
+                
                                 {{ $post->body }}
-
-                                <!-- Edit and Delete buttons in the top right corner -->
+                
+                                <!-- Edit and Delete buttons -->
                                 <div class="position-absolute top-0 end-0 mt-2 mr-2">
                                     @if (auth()->check() && auth()->user()->id === $post->user_id)
-                                        <a href="/edit-post/{{ $post->id }}" class="btn  btn-neon">Edit</a>
-                                        <form action="/delete/{{ $post->id }}" method="post" class="d-inline">
-                                            @csrf
-                                            @method('Delete')
-                                            <button class="btn btn-neon">Delete</button>
-                                        </form>
+                                        <!-- Three-dot menu for small screens -->
+                                        <div class="dropdown d-md-none">
+                                            <button class="btn btn-neon dropdown-toggle" type="button" id="postMenu{{ $post->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="postMenu{{ $post->id }}">
+                                                <li><a class="dropdown-item" href="/edit-post/{{ $post->id }}">Edit</a></li>
+                                                <li>
+                                                    <form action="/delete/{{ $post->id }}" method="post">
+                                                        @csrf
+                                                        @method('Delete')
+                                                        <button type="submit" class="dropdown-item">Delete</button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
+                
+                                        <!-- Edit and Delete buttons for larger screens -->
+                                        <div class="d-none d-md-block">
+                                            <a href="/edit-post/{{ $post->id }}" class="btn btn-neon">Edit</a>
+                                            <form action="/delete/{{ $post->id }}" method="post" class="d-inline">
+                                                @csrf
+                                                @method('Delete')
+                                                <button class="btn btn-neon">Delete</button>
+                                            </form>
+                                        </div>
                                     @endif
                                 </div>
-
+                
                                 <!-- Like and Dislike buttons with icons -->
                                 <div class="mt-3">
-                                    <button class="btn btn-success btn-neon mr-2 like-btn"
-                                        data-post-id="{{ $post->id }}"><i class="fas fa-thumbs-up"></i></button>
-                                    <button class="btn btn-danger btn-neon dislike-btn"
-                                        data-post-id="{{ $post->id }}"><i class="fas fa-thumbs-down"></i></button>
+                                    <button class="btn btn-success btn-neon mr-2 like-btn" data-post-id="{{ $post->id }}"><i class="fas fa-thumbs-up"></i></button>
+                                    <button class="btn btn-danger btn-neon dislike-btn" data-post-id="{{ $post->id }}"><i class="fas fa-thumbs-down"></i></button>
                                 </div>
                             </div>
                         @endforeach
@@ -215,12 +227,12 @@
                                 var postId = $(this).data('post-id');
                                 toggleLike(postId, 'like');
                             });
-
+                
                             $('.dislike-btn').on('click', function() {
                                 var postId = $(this).data('post-id');
                                 toggleLike(postId, 'dislike');
                             });
-
+                
                             function toggleLike(postId, type) {
                                 $.ajax({
                                     type: 'POST',
@@ -240,14 +252,25 @@
                         </script>
                     </div>
                 </div>
+                
                 <div class="col-md-6 mb-4">
-                    <div class="card p-3 shadow-lg">
-                        <p class="mb-3">You are logged in</p>
-                        <form action="/logout" method="POST">
-                            @csrf
-                            <button class="btn btn-neon">Logout</button>
-                        </form>
-
+                    <div class="card p-3 shadow-lg position-relative">
+                        <div class="dropdown m-2">
+                            <button class="btn btn-neon position-absolute top-0 end-0 m-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user "></i> <!-- Font Awesome person icon -->
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li>
+                                    <form action="/logout" method="POST">
+                                        @csrf
+                                        <button class="dropdown-item btn-neon" type="submit">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                
+                        <p class="mb-3" style="color: rgb(84, 140, 0)">You are logged in.</p>
                         <div class="mt-3 border p-3">
                             <h2>Create a new post</h2>
                             <form action="/create_post" method="POST">
@@ -263,7 +286,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <style>
                     /* Style for the "Posted" text */
                     .posted-text {
@@ -564,10 +587,7 @@
         <p>&copy; {{ date('Y') }} Opinion Vista. All rights reserved.</p>
     </div>
 
-    <!-- Bootstrap JS (optional, if needed) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
-    </script>
+   
 </body>
 
 </html>
