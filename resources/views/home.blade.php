@@ -7,12 +7,15 @@
     <title>Opinion Vista</title>
 
 
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+
 
     <style>
         /* Light mode styles */
@@ -174,7 +177,7 @@
                                 <h3>{{ $post->title }} <span class="mini-text">by "{{ $post->user->name }}"</span></h3>
 
                                 <!-- Displaying posted time in relative format -->
-                                <p>
+                                <p class="posted-text">
                                     Posted
                                     @if ($post->created_at->diffInDays(now()) <= 7)
                                         {{ $post->created_at->diffForHumans() }}
@@ -188,21 +191,21 @@
                                 <!-- Edit and Delete buttons in the top right corner -->
                                 <div class="position-absolute top-0 end-0 mt-2 mr-2">
                                     @if (auth()->check() && auth()->user()->id === $post->user_id)
-                                        <a href="/edit-post/{{ $post->id }}" class="btn btn-warning">Edit</a>
+                                        <a href="/edit-post/{{ $post->id }}" class="btn  btn-neon">Edit</a>
                                         <form action="/delete/{{ $post->id }}" method="post" class="d-inline">
                                             @csrf
                                             @method('Delete')
-                                            <button class="btn btn-danger">Delete</button>
+                                            <button class="btn btn-neon">Delete</button>
                                         </form>
                                     @endif
                                 </div>
 
                                 <!-- Like and Dislike buttons with icons -->
                                 <div class="mt-3">
-                                    <button class="btn btn-success mr-2 like-btn" data-post-id="{{ $post->id }}"><i
-                                            class="fas fa-thumbs-up"></i></button>
-                                    <button class="btn btn-danger dislike-btn" data-post-id="{{ $post->id }}"><i
-                                            class="fas fa-thumbs-down"></i></button>
+                                    <button class="btn btn-success btn-neon mr-2 like-btn"
+                                        data-post-id="{{ $post->id }}"><i class="fas fa-thumbs-up"></i></button>
+                                    <button class="btn btn-danger btn-neon dislike-btn"
+                                        data-post-id="{{ $post->id }}"><i class="fas fa-thumbs-down"></i></button>
                                 </div>
                             </div>
                         @endforeach
@@ -242,7 +245,7 @@
                         <p class="mb-3">You are logged in</p>
                         <form action="/logout" method="POST">
                             @csrf
-                            <button class="btn btn-danger">Logout</button>
+                            <button class="btn btn-neon">Logout</button>
                         </form>
 
                         <div class="mt-3 border p-3">
@@ -255,13 +258,71 @@
                                 <div class="mb-3">
                                     <textarea name="body" class="form-control" cols="30" rows="5" placeholder="Body content ..."></textarea>
                                 </div>
-                                <button class="btn btn-primary">Save post</button>
+                                <button class="btn btn-neon">Save post</button>
                             </form>
                         </div>
                     </div>
                 </div>
 
+                <style>
+                    /* Style for the "Posted" text */
+                    .posted-text {
+                        font-size: 14px;
+                        /* Adjust the font size as needed */
+                        color: #555;
+                        /* Change the color to a shade of gray */
+                        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+                        /* Add a subtle shadow effect */
+                    }
 
+                    /* Add these styles to give the buttons a neon effect */
+                    .btn-neon {
+                        --button-bg-dark: black;
+                        --button-bg-light: white;
+                        --neon-color: #82A972;
+
+                        position: relative;
+                        background-color: var(--button-bg-dark);
+                        color: var(--neon-color);
+                        border: none;
+                        padding: 10px 20px;
+                        font-size: 16px;
+                        cursor: pointer;
+                        overflow: hidden;
+                        transition: background-color 0.2s, color 0.2s;
+                    }
+
+                    .btn-neon:before,
+                    .btn-neon:after {
+                        content: "";
+                        position: absolute;
+                        width: 100%;
+                        height: 2px;
+                        background: var(--neon-color);
+                        top: 0;
+                        left: 0;
+                        transform: scaleX(0);
+                        transform-origin: left;
+                        transition: transform 0.2s ease-in-out;
+                    }
+
+                    .btn-neon:after {
+                        top: auto;
+                        bottom: 0;
+                        transform-origin: right;
+                    }
+
+                    .btn-neon:hover:before,
+                    .btn-neon:hover:after {
+                        transform: scaleX(1);
+                    }
+
+                    /* Adjust the styles for light theme */
+                    .light-theme .btn-neon {
+                        background-color: var(--button-bg-light);
+                        color: var(--neon-color);
+                    }
+                </style>
 
             </div>
         </div>
@@ -312,7 +373,7 @@
                 --button-bg-dark: black;
                 --button-bg-light: white;
                 --neon-color: #82A972;
-        
+
                 position: relative;
                 background-color: var(--button-bg-dark);
                 color: var(--neon-color);
@@ -323,7 +384,7 @@
                 overflow: hidden;
                 transition: background-color 0.2s, color 0.2s;
             }
-        
+
             .btn-neon:before,
             .btn-neon:after {
                 content: "";
@@ -337,25 +398,25 @@
                 transform-origin: left;
                 transition: transform 0.2s ease-in-out;
             }
-        
+
             .btn-neon:after {
                 top: auto;
                 bottom: 0;
                 transform-origin: right;
             }
-        
+
             .btn-neon:hover:before,
             .btn-neon:hover:after {
                 transform: scaleX(1);
             }
-        
+
             /* Adjust the styles for light theme */
             .light-theme .btn-neon {
                 background-color: var(--button-bg-light);
                 color: var(--neon-color);
             }
         </style>
-        
+
 
         <section class="animation">
             <div class="slider-area text-center ">
